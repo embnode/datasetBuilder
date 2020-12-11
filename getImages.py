@@ -1,12 +1,17 @@
 import requests
 import os
+import datetime
+import hashlib
 
-BASE_DIR = "D:\work\_Software\ML\datasets\\MushroomsRussian\unsorted"
+date = datetime.datetime.now()
+date = str(date)
+sha = hashlib.sha1(date.encode("utf-8")).hexdigest()
+
+BASE_DIR = "D:\work\_Software\ML\datasets\MushroomsRussian\\unsorted"
 LINKS_FILE = 'D:\work\_Software\ML\grab\links.txt'
-pic_url = "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSUP83HfkK4DHQ54OmI0ByVlpm0JljsTS0-CQ&usqp=CAU"
 
-KIND = 'Cantharellaceae' # лисичковые
-PEAMBULA = 'csadgdfasg'
+KIND = 'Pax'
+PEAMBULA = sha
 GRAB_DIR = os.path.join(BASE_DIR, KIND)
 if os.path.isdir(GRAB_DIR) == False:
     os.makedirs(GRAB_DIR)
@@ -36,6 +41,3 @@ with open(LINKS_FILE, 'r') as links:
         downloadImage(filename, line)
         if os.stat(filename).st_size == 0:
             os.remove(filename)
-        #print(f"Вывод строки: {n}) - {line}")
-
-#downloadImage(pic_file, pic_url)
